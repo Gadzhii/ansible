@@ -1,0 +1,8 @@
+o[servers:children]
+webserver
+localserver
+[webserver]
+51.250.34.224
+51.250.112.16
+[localserver]
+localhost ansible_connection=local
