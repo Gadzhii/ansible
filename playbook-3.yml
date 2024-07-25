@@ -1,0 +1,19 @@
+- hosts: webservers
+  tasks:
+    - name: apt update
+      apt:
+        update_cache: yes
+      become: yes
+      tags: update
+
+    - name: create user
+      ansible.builtin.user:
+        name: user1
+      become: yes    
+    
+    - name: remove user1
+      ansible.builtin.user:
+        name: user1
+        state: absent
+        remove: true
+      become: yes
