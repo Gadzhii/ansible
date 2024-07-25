@@ -1,5 +1,9 @@
-- hosts: webserver1
-  tasks:
+- hosts: webservers
+  vars:
+    nginx_port: 8080
+    root_dir: /usr/share/nginx/html
+
+  tasks:  
     - name: install nginx
       apt:
         name: nginx
@@ -7,16 +11,16 @@
       become: yes
       
     - name: update config
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: index.html
-        dest: /usr/share/nginx/html/index.html
+        dest: "{{root_dir}}/index.html"
       notify: 
         - restart nginx
       become: yes
 
     - name: update config nginx
-      ansible.builtin.copy:
-        src: nginx.conf
+      ansible.builtin.template:
+        src: nginx.conf.j2
         dest: /etc/nginx/nginx.conf
       notify:
         - restart nginx

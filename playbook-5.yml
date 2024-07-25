@@ -1,4 +1,4 @@
-- hosts: webserver1
+- hosts: webservers
   tasks:
     - name: stop nginx
       ansible.builtin.service:
