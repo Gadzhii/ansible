@@ -1,7 +1,8 @@
-- hosts: webservers
+- hosts: webserver1
   vars:
     nginx_port: 8080
     root_dir: /usr/share/nginx/html
+    server_name: "{{ ansible_hostname }}" 
 
   tasks:  
     - name: install nginx
@@ -12,7 +13,7 @@
       
     - name: update config
       ansible.builtin.template:
-        src: index.html
+        src: index.html.j2
         dest: "{{root_dir}}/index.html"
       notify: 
         - restart nginx
